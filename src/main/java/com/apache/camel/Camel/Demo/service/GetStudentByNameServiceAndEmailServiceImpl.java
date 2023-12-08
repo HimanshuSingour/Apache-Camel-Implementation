@@ -1,4 +1,4 @@
-package com.apache.camel.Camel.Demo.service.getName;
+package com.apache.camel.Camel.Demo.service;
 
 import com.apache.camel.Camel.Demo.model.Student;
 import com.apache.camel.Camel.Demo.service.GetStudentByNameAndEmailService;
@@ -18,7 +18,7 @@ public class GetStudentByNameServiceAndEmailServiceImpl implements GetStudentByN
     public Student getStudentByNameAndEmail(String studentName, String email) {
 
         producerTemplate.start();
-        Exchange result = producerTemplate.send("direct:getByParam", exchange -> {
+        Exchange result = producerTemplate.send("direct:saveEmailName", exchange -> {
             exchange.getIn().setHeader("studentName", studentName);
             exchange.getIn().setHeader("email", email);
         });

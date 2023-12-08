@@ -1,27 +1,33 @@
-package com.apache.camel.Camel.Demo.service.get;
+package com.apache.camel.Camel.Demo.service;
 
 import com.apache.camel.Camel.Demo.model.Student;
-import com.apache.camel.Camel.Demo.service.GetStudentService;
+import com.apache.camel.Camel.Demo.service.SaveStudentService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.camel.ProducerTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 @Service
 @RequiredArgsConstructor
-public class GetStudentServiceImpl implements GetStudentService {
+@Slf4j
+public class SaveStudentServiceImpl implements SaveStudentService {
 
     @Autowired
     private final ProducerTemplate producerTemplate;
 
     @Override
-    public Student getStudentById(Integer studentId) {
+    public Student saveData(Student student) {
 
         producerTemplate.start();
         Student response = producerTemplate
-                .requestBody("direct:getStudent", studentId, Student.class);
+                .requestBody("direct:saveStudent", student, Student.class);
         producerTemplate.stop();
         return response;
-
     }
+
+
 }
+
+
